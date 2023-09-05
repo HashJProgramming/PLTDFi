@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PLDTFi - WIFI PASSWORD GENERATOR</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">PLDTFi - WIFI PASSWORD GENERATOR</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <form id="fibrForm">
+                    <div class="form-group">
+                        <label for="ssid_fibr">Fibr SSID:</label>
+                        <input type="text" class="form-control" id="ssid_fibr" name="ssid" placeholder="Enter Fibr SSID">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="generateFibrPassword()">Generate Password</button>
+                </form>
+                <div class="form-group mt-4">
+                    <label for="result_fibr"></label>
+                    <textarea class="form-control" id="result_fibr" rows="3" readonly></textarea>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <form id="dslForm">
+                    <div class="form-group">
+                        <label for="ssid_dsl">DSL SSID:</label>
+                        <input type="text" class="form-control" id="ssid_dsl" name="ssid" placeholder="Enter DSL SSID">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="generateDslPassword()">Generate Password</button>
+                </form>
+                <div class="form-group mt-4">
+                    <label for="result_dsl"></label>
+                    <textarea class="form-control" id="result_dsl" rows="3" readonly></textarea>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <form id="macForm">
+                    <div class="form-group">
+                        <label for="mac_address">MAC Address:</label>
+                        <input type="text" class="form-control" id="mac_address" name="mac" placeholder="Enter MAC Address">
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="generateMacPassword()">Generate Password</button>
+                </form>
+                <div class="form-group mt-4">
+                    <label for="result_mac"></label>
+                    <textarea class="form-control" id="result_mac" rows="3" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function generateFibrPassword() {
+            const ssid = document.getElementById('ssid_fibr').value;
+            
+            // Make a GET request to the Flask API for Fibr password generation
+            fetch('/fibr/' + ssid, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the generated password in the result div
+                document.getElementById('result_fibr').innerHTML = `${data.password}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function generateDslPassword() {
+            const ssid = document.getElementById('ssid_dsl').value;
+
+            // Make a GET request to the Flask API for DSL password generation
+            fetch('/dsl/' + ssid, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the generated password in the result div
+                document.getElementById('result_dsl').innerHTML = `${data.password}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function generateMacPassword() {
+            const mac = document.getElementById('mac_address').value;
+
+            // Make a GET request to the Flask API for MAC password generation
+            fetch('/mac/' + mac, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the generated password in the result div
+                document.getElementById('result_mac').innerHTML = `${data.password}`;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
