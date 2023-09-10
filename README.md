@@ -1,6 +1,5 @@
 # PLDTFi - WIFI PASSWORD GENERATOR
 ![Alt text](image.png)
-
 ## SETUP
 ```bash
 git clone https://github.com/Team-Learning-Session/PLTDFi

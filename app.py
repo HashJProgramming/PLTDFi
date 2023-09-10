@@ -29,21 +29,14 @@ def generate_pswd_fibr(ssid: str):
     return "PLDTWIFI" + calculated_mac.upper()
 
 
-def generate_pswd_dsl(digit : int):
-    if not isinstance(digit, int):
-        return "Invalid input"
+def generate_pswd_dsl(digit):
+    digit = int(digit)
     pswd = digit * 3
     return f"PLDTWIFI{pswd}"
 
 @app.route('/')
 def home():
     return render_template('index.html')
-
-@app.route('/mac/<mac>', methods=['GET'])
-def pldt_mac(mac: str):
-    mac = mac.replace(':', '')
-    mac = mac.replace('-', '')
-    return jsonify({'mac' : mac,'password': generate_pswd_fibr(mac[-5:])})
 
 @app.route('/fibr/<ssid>', methods=['GET'])
 def pldt_fibr(ssid: str):
